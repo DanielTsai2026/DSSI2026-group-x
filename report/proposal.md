@@ -2,7 +2,7 @@
 
 - 來源：[fa-25-econ-5166-proposal-group1（Google 文件）](https://docs.google.com/document/d/1xpgkf3iCpB-SRysClgCvNBaziKGDF-ew_scSp-KleCw/edit?tab=t.0)
 - 轉換日期：2026-10-06
-- 最近同步日期：2026-10-06
+- 最近同步日期：2026-10-07
 - 文件狀態：已同步 Google 文件更新的第 3 節資料表；第 2 節資料樣本仍待補充。
 
 第 1 組
