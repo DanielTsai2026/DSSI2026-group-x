@@ -30,7 +30,7 @@ AI 只整理學生提供或明確確認的姓名與工作，不自行指派 PM�
 
 ## Student Preferences
 
-- Tool / artifact format: 本次使用者於 2026-10-13 明確指定假資料示範使用 `.ipynb`，採 Python／Jupyter；此紀錄限本次示範，不代表全組成員皆已選定工具。
+- Tool / artifact format: 本次使用者於 2026-10-13 明確指定假資料示範使用 `.ipynb`，採 Python／Jupyter；本次另指定以 Plotly 繪製 EDA；說明與程式採簡單直接的寫法，不使用檔案指紋或版本比對，保留缺值、重複、合併與金額檢查。此紀錄限本次示範，不代表全組成員皆已選定工具。
 - Report language: 繁體中文（台灣用語，zh-TW；教師預設，學生明確指定其他語言時優先沿用）
 - Other explicit preferences: 尚未提供
 
@@ -56,17 +56,20 @@ AI 只整理學生提供或明確確認的姓名與工作，不自行指派 PM�
 
 資料建立或核對後，由 AI 依 [資料銜接規則](FINDING-RULES.md#資料銜接與檔案驗證) 填入實際紀錄，一個資料檔一列。尚無資料時保持空表，不把範例當成已完成結果。
 
-| Dataset | Role | Data file | Documentation | Processing notebook | Verification | SHA-256 |
-| --- | --- | --- | --- | --- | --- | --- |
-| demo_orders（完全虛構） | raw | [CSV](data/raw/demo_orders.csv) | [原始資料說明](data/raw/demo_orders_documentation.ipynb) | not applicable (source)；由 [生成程式](data/code/demo_generate_orders.py) 重建 | 2026-10-13 已執行；122 列、5 欄；2 列完整重複、3 個數量缺值、2 個負單價；保留原始問題 | fdf4f852be719af4c6bf4d7a8bb2246f3965cf90a6b0dbfd6153e7ae582d1abb |
-| demo_orders_clean（完全虛構） | analysis | [CSV](data/processed/demo_orders_clean.csv) | [整理後資料說明](data/processed/demo_orders_documentation.ipynb) | [處理 notebook](data/code/demo_orders_processing.ipynb) | 2026-10-13 已執行並讀回；115 列、6 欄；鍵唯一、無缺值、類別、日期、範圍與金額公式檢查通過；僅供格式示範 | 566d03f1701b16128fd119cc2776d775787816fb13f3d7e6d799988f6ce43104 |
-| demo_orders_summary（虛構資料摘要） | result summary | [結果 CSV](finding/demo_orders_summary.csv) | [分析 notebook](finding/demo_orders_analysis.ipynb) | [分析 notebook](finding/demo_orders_analysis.ipynb) | 2026-10-13 已執行並讀回；3 個數值變數之摘要；各變數有效 N=115；非分析輸入 | a8868e7b18cdbf7cd2b95f73c650c63e20a655261fecdbfac8ff3e2179e8ab8c |
+| Dataset | Role | Data file | Documentation | Processing notebook | Verification |
+| --- | --- | --- | --- | --- | --- |
+| demo_orders（完全虛構） | raw | [CSV](data/raw/demo_orders.csv) | [原始資料說明](data/raw/demo_orders_documentation.ipynb) | not applicable (source)；由 [生成程式](data/code/demo_generate_orders.py) 重建 | 2026-10-13 已執行；122 列、5 欄；2 列完整重複、3 個數量缺值、2 個負單價；保留原始問題 |
+| demo_categories（模擬商品類別） | raw lookup | [CSV](data/raw/demo_categories.csv) | [類別表說明](data/raw/demo_categories_documentation.ipynb) | not applicable (source)；由 [生成程式](data/code/demo_generate_orders.py) 重建 | 2026-10-13 已執行；3 列、2 欄；category 唯一、無缺值 |
+| demo_calendar（日期對照表） | raw lookup | [CSV](data/raw/demo_calendar.csv) | [日期表說明](data/raw/demo_calendar_documentation.ipynb) | not applicable (source)；由 [生成程式](data/code/demo_generate_orders.py) 重建 | 2026-10-13 已執行；30 列、3 欄；日期唯一且涵蓋 9 月全月；週末定義核對通過 |
+| demo_orders_clean（完全虛構） | analysis | [CSV](data/processed/demo_orders_clean.csv) | [整理後資料說明](data/processed/demo_orders_documentation.ipynb) | [處理 notebook](data/code/demo_orders_processing.ipynb) | 2026-10-13 已執行並讀回；三表合併後 115 列、9 欄；兩次 many-to-one 合併皆無漏配、無增列；鍵唯一、無缺值、類別、星期、日期類型及金額檢查通過 |
+| demo_orders_summary（虛構資料摘要） | result summary | [結果 CSV](finding/demo_orders_summary.csv) | [分析 notebook](finding/demo_orders_analysis.ipynb) | [分析 notebook](finding/demo_orders_analysis.ipynb) | 2026-10-13 已執行並讀回；3 個數值變數之摘要；各變數有效 N=115；非分析輸入 |
 
-本次 `demo_` 檔案為使用者委託 Codex 生成的檔案流程示範，不代表本組研究題目或學生貢獻歸屬。重建順序：`python data/code/demo_generate_orders.py` → raw 說明 → data/code 處理 → processed 說明 → finding 分析。四份 notebook 均已從乾淨 kernel 執行並保留輸出；示範程式、notebook 與本索引尚未 commit／push。CSV 全部留本機。
+本次 `demo_` 檔案為使用者委託 Codex 生成的檔案流程示範，不代表本組研究題目或學生貢獻歸屬。重建順序：`python data/code/demo_generate_orders.py` → raw 說明 → data/code 處理 → processed 說明 → finding 分析。六份 notebook 均已有執行輸出；六份均已重新執行；示範程式、notebook 與本索引尚未 commit／push。CSV 全部留本機。分析 notebook 新增四張 Plotly EDA 圖，互動輸出與 PNG 預覽都已保存；獨立圖片位於 [圖表目錄](finding/assets/demo_orders_analysis/)。
 
-路徑與連結相對於本專案根目錄。Role 記錄 raw／analysis／train／test 或已確認用途；Verification 說明實際執行的檢查、日期與限制，未完成時明列 pending／failed。SHA-256 由實際檔案計算。外部整理檔沒有產生程式可記 not available；原始來源可記 not applicable (source)。
+路徑與連結相對於本專案根目錄。Role 記錄 raw／analysis／train／test 或已確認用途；Verification 說明實際執行的檢查、日期與限制，未完成時明列 pending／failed。外部整理檔沒有產生程式可記 not available；原始來源可記 not applicable (source)。
 
-資料檔留在本機，不 commit／push；本表仍登記實際本機檔案。資料說明須記錄來源、取得方法、放置路徑與已核對版本，讓各組員自行取得相同輸入。本機資料連結不是 GitHub 下載入口。
+資料檔留在本機，不 commit／push；本表仍登記實際本機檔案。資料說明須記錄來源、取得方法、放置路徑，讓各組員自行取得相同輸入。本機資料連結不是 GitHub 下載入口。
+
 
 ## Key Contributions
 
