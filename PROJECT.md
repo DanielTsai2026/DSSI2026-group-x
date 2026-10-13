@@ -30,7 +30,7 @@ AI 只整理學生提供或明確確認的姓名與工作，不自行指派 PM�
 
 ## Student Preferences
 
-- Tool / artifact format: 尚未選定；開始資料文件或分析工作時再確認 Python／Jupyter 或 R／R Markdown。只寫 Markdown proposal 不需先選分析工具；明確選用 Stata 時依專用格式。
+- Tool / artifact format: 本次使用者於 2026-10-13 明確指定假資料示範使用 `.ipynb`，採 Python／Jupyter；此紀錄限本次示範，不代表全組成員皆已選定工具。
 - Report language: 繁體中文（台灣用語，zh-TW；教師預設，學生明確指定其他語言時優先沿用）
 - Other explicit preferences: 尚未提供
 
@@ -58,6 +58,11 @@ AI 只整理學生提供或明確確認的姓名與工作，不自行指派 PM�
 
 | Dataset | Role | Data file | Documentation | Processing notebook | Verification | SHA-256 |
 | --- | --- | --- | --- | --- | --- | --- |
+| demo_orders（完全虛構） | raw | [CSV](data/raw/demo_orders.csv) | [原始資料說明](data/raw/demo_orders_documentation.ipynb) | not applicable (source)；由 [生成程式](data/code/demo_generate_orders.py) 重建 | 2026-10-13 已執行；122 列、5 欄；2 列完整重複、3 個數量缺值、2 個負單價；保留原始問題 | fdf4f852be719af4c6bf4d7a8bb2246f3965cf90a6b0dbfd6153e7ae582d1abb |
+| demo_orders_clean（完全虛構） | analysis | [CSV](data/processed/demo_orders_clean.csv) | [整理後資料說明](data/processed/demo_orders_documentation.ipynb) | [處理 notebook](data/code/demo_orders_processing.ipynb) | 2026-10-13 已執行並讀回；115 列、6 欄；鍵唯一、無缺值、類別、日期、範圍與金額公式檢查通過；僅供格式示範 | 566d03f1701b16128fd119cc2776d775787816fb13f3d7e6d799988f6ce43104 |
+| demo_orders_summary（虛構資料摘要） | result summary | [結果 CSV](finding/demo_orders_summary.csv) | [分析 notebook](finding/demo_orders_analysis.ipynb) | [分析 notebook](finding/demo_orders_analysis.ipynb) | 2026-10-13 已執行並讀回；3 個數值變數之摘要；各變數有效 N=115；非分析輸入 | a8868e7b18cdbf7cd2b95f73c650c63e20a655261fecdbfac8ff3e2179e8ab8c |
+
+本次 `demo_` 檔案為使用者委託 Codex 生成的檔案流程示範，不代表本組研究題目或學生貢獻歸屬。重建順序：`python data/code/demo_generate_orders.py` → raw 說明 → data/code 處理 → processed 說明 → finding 分析。四份 notebook 均已從乾淨 kernel 執行並保留輸出；示範程式、notebook 與本索引尚未 commit／push。CSV 全部留本機。
 
 路徑與連結相對於本專案根目錄。Role 記錄 raw／analysis／train／test 或已確認用途；Verification 說明實際執行的檢查、日期與限制，未完成時明列 pending／failed。SHA-256 由實際檔案計算。外部整理檔沒有產生程式可記 not available；原始來源可記 not applicable (source)。
 
